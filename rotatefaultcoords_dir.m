@@ -12,7 +12,9 @@ function rotcoords=rotatefaultcoords(dirname, dip)
 
 % Create a new directory into which rotated coordinate files will be placed
 rotdirname = sprintf('%s_truedip', dirname);
-mkdir(rotdirname);
+if ~exist(rotdirname, 'dir')
+   mkdir(rotdirname);
+end
 % Get a listing of all files in the specified directory
 files = dir([dirname filesep '*.txt']);
 % Sort files numerically

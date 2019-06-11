@@ -24,6 +24,8 @@ function fcoords = arbrot(coords,strike,dip)
 %	transformations.
 %
 
+warning('off','MATLAB:singularMatrix')
+
 % place the coords into an appropriately shaped array for transformations
 coords = [coords'; ones(1, size(coords, 1))];
 
@@ -51,3 +53,5 @@ rshift = [[1 0 0;0 1 0;0 0 1;0 0 0] [or(1:2); 0; 1]];
 % make the composite transformation
 fcoords = rshift*strikem*dipm*north*shift*coords;
 fcoords = fcoords(1:3,:)';
+
+warning('on','MATLAB:singularMatrix')
