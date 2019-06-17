@@ -18,9 +18,10 @@ dz = [maxz; maxz];
 
 % Write coordinates to Gmsh .geo file
 fid = fopen('junk.geo', 'w');
-fprintf(fid, 'charl = %g;\n', sz); % Write element size
+fprintf(fid, 'charl%g = %g;\n', [1:length(sz); sz(:)']); % Write element size
+szi = [1 1 length(sz) length(sz)]; % Element size index array
 % Write points: top then bottom
-fprintf(fid, 'Point(%g) = {%g, %g, %g, charl};\n', [1:4; [tx(:)', dx(:)']; [ty(:)', dy(:)']; [tz(:)', dz(:)']]);
+fprintf(fid, 'Point(%g) = {%g, %g, %g, charl%g};\n', [1:4; [tx(:)', dx(:)']; [ty(:)', dy(:)']; [tz(:)', dz(:)']; szi]);
 % Write lines: top, side 1, bottom, side 2
 fprintf(fid, 'Line(%g) = {%g,%g};\n', [1, 1, 2, 2, 2, 4, 3, 4, 3, 4, 3, 1]);
 % Circulate lines and create plane
@@ -28,39 +29,7 @@ fprintf(fid, 'Line Loop(1) = {1, 2, 3, 4};\nRuled Surface(1) = {1};\n');
 fclose(fid);
 
 % Mesh using Gmsh
-
-% Check for preferences file
-if exist('gmshfaultspref.mat', 'file') ~= 0 % If this .mat file exists, 
-   load('gmshfaultspref.mat', 'gmshpath') % Load it
-else % If not, 
-   if ismac
-      if exist('/Applications/Gmsh.app/Contents/MacOS/gmsh', 'file') % Check for default install location
-         gmshpath = '/Applications/Gmsh.app/Contents/MacOS/';
-      else
-         gmshpath = ''; % Or ask for install location
-         while ~exist([gmshpath filesep 'gmsh'], 'file')
-            gmshpath = input('Enter path to Gmsh application: ');
-         end
-      end
-      % Save Gmsh path to preferences file, to be read in future runs
-      gmfp = fileparts(which('gmshfaults'));
-      save([gmfp filesep 'gmshfaultspref.mat'], 'gmshpath');
-   elseif ispc || (isunix && ~ismac)
-      gmshpath = ''; % Or ask for install location
-      while ~exist([gmshpath filesep 'gmsh.exe'], 'file')
-         gmshpath = input('Enter path to Gmsh application: ');
-      end
-      % Save Gmsh path to preferences file, to be read in future runs
-      gmfp = fileparts(which('gmshfaults'));
-      save([gmfp filesep 'gmshfaultspref.mat'], 'gmshpath');
-   end
-end
-
-% Do the meshing
-system(sprintf('%s/gmsh -2 junk.geo -o junk.msh -v 0 > junk', gmshpath));
-
-% Read the mesh
-p = ReadPatches('junk.msh');
+p = gmsh('junk.geo');
 
 % Remove temp files
 system('rm junk*');
