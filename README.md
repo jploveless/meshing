@@ -21,4 +21,4 @@ The meshing workflow is:
     p = PatchCoordsx(p); % Calculate some geometric parameters of faults
     meshview(p.c, p.v, p.zc); % Visualize faults, coloring by element centroid depth
     
-
+![examplefaults](https://user-images.githubusercontent.com/7537266/120029943-cd12f900-bfc4-11eb-8946-9ce0277b1b22.png)
