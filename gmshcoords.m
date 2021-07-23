@@ -65,7 +65,8 @@ for i = 1:nf
    end
 end
 fclose(fid);
-   % Mesh using Gmsh
+
+% Mesh using Gmsh
    
 % Check for preferences file
 if exist('gmshfaultspref.mat', 'file') ~= 0 % If this .mat file exists, 
