@@ -1,0 +1,15 @@
+charl = 0.5;
+Point(1) = {3.1459, 13.7582, 0, charl};
+Point(2) = {3.7603, 16.1099, 0, charl};
+Point(3) = {4.3313, 17.7802, 0, charl};
+Point(4) = {4.6575, 19.011, 0, charl};
+Point(5) = {4.6575, 19.011, -5, charl};
+Point(6) = {4.3313, 17.7802, -5, charl};
+Point(7) = {3.7603, 16.1099, -5, charl};
+Point(8) = {3.1459, 13.7582, -5, charl};
+CatmullRom(1) = {1:4};
+CatmullRom(2) = {5:8};
+CatmullRom(3) = {4,5};
+CatmullRom(4) = {8,1};
+Line Loop(1) = {1, 3, 2, 4};
+Ruled Surface(1) = {1};
