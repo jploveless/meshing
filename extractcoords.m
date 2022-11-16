@@ -73,3 +73,6 @@ for i = 1:numel(begs)
    c(idxt(1):idxb(2), 1:2) = [tc; flipud(tc)];
    c(idxb(1):idxb(2), 3) = -abs(depth);
 end
+
+% Make sure we're returning nc as a column vector
+nc = nc(:);

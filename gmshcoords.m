@@ -27,7 +27,7 @@ nf = numel(nc);
 % Indices of each entity's beginning, midpoint, and end
 ends = cumsum(nc(:));
 begs = [1; ends(1:end-1)+1];
-mids = [nc(1)/2 + 1; ends(1:end-1) + nc(2:end)'/2 + 1];
+mids = [nc(1)/2 + 1; ends(1:end-1) + nc(2:end)/2 + 1];
 % Labels for 4 edges for each entity
 edgs = reshape(1:4*nf, 4, nf);
 
