@@ -38,7 +38,7 @@ else
       end
       a = str2num(a(fl:end, :));
       d3 = diff(a(:, 3));
-      ends = [find(d3==1); size(a, 1)];
+      ends = [find(d3>0); size(a, 1)];
       begs = [1; ends(1:end-1)+1];
    else
       % GMT style delimiters
