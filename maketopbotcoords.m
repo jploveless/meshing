@@ -35,6 +35,7 @@ else
    begs = [1; ends(1:end-1)+1];
 end
 
+% Make top and bottom coordinate directories
 topdir = [file(1:end-4), '_topcoords'];
 botdir = [file(1:end-4), '_botcoords'];
 if ~exist(topdir, 'dir')
@@ -43,6 +44,13 @@ end
 
 if ~exist(botdir, 'dir')
    mkdir(botdir)
+end
+
+% Write individual faults to files
+
+% Create depth vector
+if length(depth) == 1
+   depth = depth*ones(size(begs));
 end
 
 for i = 1:numel(begs)
@@ -56,7 +64,7 @@ for i = 1:numel(begs)
    % Try to sort coordinates along a single direction
 %   [~, di] = sort(mag(tout, 2));
 %   tout = tout(di, :);
-   bout = [tout(:, 1:2) -abs(depth)*ones(size(tout, 1), 1)];
+   bout = [tout(:, 1:2) -abs(depth(i))*ones(size(tout, 1), 1)];
    save(sprintf('%s/f%g.txt', topdir, i), 'tout', '-ascii');
    save(sprintf('%s/f%g.txt', botdir, i), 'bout', '-ascii');
 end

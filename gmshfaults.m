@@ -109,6 +109,6 @@ alldir = sortnumfilenames(alldir);
 
 allstring = '';
 for i = 1:length(alldir)
-   allstring = sprintf('%s %s/%s', allstring, alldir(i).folder, alldir(i).name);
+   allstring = sprintf('%s %s/%s', allstring, botdir, alldir(i).name);
 end
 allstring = allstring(2:end); % Remove leading space
