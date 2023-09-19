@@ -75,6 +75,8 @@ else % If not,
    if ismac
       if exist('/Applications/Gmsh.app/Contents/MacOS/gmsh', 'file') % Check for default install location
          gmshpath = '/Applications/Gmsh.app/Contents/MacOS/';
+      elseif exist('/Applications/Gmsh/Gmsh.app/Contents/MacOS/gmsh', 'file') % Check for default install location
+         gmshpath = '/Applications/Gmsh/Gmsh.app/Contents/MacOS/';
       else
          gmshpath = ''; % Or ask for install location
          while ~exist([gmshpath filesep 'gmsh'], 'file')
