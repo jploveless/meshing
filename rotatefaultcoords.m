@@ -27,7 +27,7 @@ end
 % Indices of bottom coordinates
 nc = nc(:); % Assure column vector
 ends = cumsum(nc(:));
-begs = [nc(1)/2 + 1; ends(1:end-1) + nc(2:end)/2 + 1];
+begs = [1, ends(1:end-1)+1];
 
 rc = c;
 % For each fault...
